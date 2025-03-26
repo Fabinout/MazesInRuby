@@ -1,5 +1,6 @@
-require 'cell'
+require 'model/cell'
 
+# grille
 class Grid
   attr_reader :rows, :columns
 
@@ -43,10 +44,8 @@ class Grid
     @rows * @columns
   end
 
-  def each_row
-    @grid.each do |row|
-      yield row
-    end
+  def each_row(&block)
+    @grid.each(&block)
   end
 
   def each_cell

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'grid'
-require 'sidewinder'
+require 'model/grid'
+require 'generation/sidewinder'
 
 grid = Grid.new(6,6)
 Sidewinder.on(grid)
