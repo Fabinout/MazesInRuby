@@ -56,6 +56,12 @@ class Grid
     end
   end
 
+  def each_row
+    @grid.each do |row|
+      yield row
+    end
+  end
+
   def save_events(filename)
     File.write(filename, JSON.pretty_generate(@events.map(&:to_h)))
   end
