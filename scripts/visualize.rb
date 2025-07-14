@@ -1,5 +1,5 @@
 require_relative '../model/grid'
-require_relative 'sidewinder'
+require_relative '../generation/sidewinder'
 
 
 grid = Grid.new(8, 8)

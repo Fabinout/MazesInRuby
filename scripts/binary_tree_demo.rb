@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'model/grid'
-require 'generation/binary_tree'
+require_relative '../model/grid'
+require_relative '../generation/binary_tree'
 
-grid = Grid.new(10, 10)
+grid = Grid.new(7, 7)
 BinaryTree.on(grid)
 
 puts grid

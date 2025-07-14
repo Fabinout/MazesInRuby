@@ -28,15 +28,21 @@ class Grid
     # Configuration des cellules voisines
     @grid.each_with_index do |row, r|
       row.each_with_index do |cell, c|
-        cell.north = @grid[r-1][c] if r > 0
-        cell.south = @grid[r+1][c] if r + 1 < rows
-        cell.west = @grid[r][c-1] if c > 0
-        cell.east = @grid[r][c+1] if c + 1 < columns
+        cell.north = @grid[r - 1][c] if r > 0
+        cell.south = @grid[r + 1][c] if r + 1 < rows
+        cell.west = @grid[r][c - 1] if c > 0
+        cell.east = @grid[r][c + 1] if c + 1 < columns
       end
     end
   end
 
   def cell_at(row, column)
+    @grid[row][column]
+  end
+
+  def [](row, column)
+    return nil unless row.between?(0, @rows - 1)
+    return nil unless column.between?(0, @grid[row].count - 1)
     @grid[row][column]
   end
 
@@ -88,25 +94,33 @@ class Grid
   end
 end
 
+# to be extended in subclass distance_grids
+def contents_of(cell)
+  " "
+end
+
+
+
 def to_s
   output = "+" + "---+" * columns + "\n"
 
-  @grid.each do |row|
+  each_row do |row|
     top = "|"
     bottom = "+"
 
     row.each do |cell|
-      if cell
+      cell = Cell.new(- 1, -1, this) unless cell
+        body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? " " : "|")
+        top << body << east_boundary
         south_boundary = (cell.linked?(cell.south) ? "   " : "---")
-        top << "   " << east_boundary
-        bottom << south_boundary << "+"
+        corner = "+"
+        bottom << south_boundary << corner
       end
+
+      output << top << "\n"
+      output << bottom << "\n"
     end
 
-    output << top << "\n"
-    output << bottom << "\n"
+    output
   end
-
-  output
-end
