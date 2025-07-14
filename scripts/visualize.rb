@@ -1,15 +1,10 @@
-# visualize.rb
-require 'model/grid'
-require 'generation/binary_tree'
-require 'image_exporter'
-require 'gif_creator'
-require 'chunky_png'
+require_relative '../model/grid'
+require_relative 'sidewinder'
 
-grid = Grid.new(20, 20)
-BinaryTree.on(grid)
 
-# Exporter l'image du labyrinthe
-png = ImageExporter.render_grid_to_png(grid)
-png.save('binary_tree_maze.png')
-system('display binary_tree_maze.png &')  # Afficher l'image (nécessite ImageMagick)
+grid = Grid.new(8, 8)
+Sidewinder.on(grid)
 
+grid.save_events('sw.json')
+
+puts(grid)
