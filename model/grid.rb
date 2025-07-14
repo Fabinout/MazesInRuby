@@ -44,6 +44,14 @@ class Grid
     apply_event(CellsLinkedEvent.new(from_row, from_column, to_row, to_column))
   end
 
+  def each_cell
+    @grid.each do |row|
+      row.each do |cell|
+        yield cell
+      end
+    end
+  end
+
   def save_events(filename)
     File.write(filename, JSON.pretty_generate(@events.map(&:to_h)))
   end
