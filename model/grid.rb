@@ -21,7 +21,7 @@ class Grid
     @columns = columns
     @grid = Array.new(rows) do |row|
       Array.new(columns) do |col|
-        Cell.new(row, col)
+        Cell.new(row, col, self)
       end
     end
 
@@ -38,6 +38,10 @@ class Grid
 
   def cell_at(row, column)
     @grid[row][column]
+  end
+
+  def notify_cells_linked(cell1, cell2)
+    apply_event(CellsLinkedEvent.new(cell1.row, cell1.column, cell2.row, cell2.column))
   end
 
   def link_cells(from_row, from_column, to_row, to_column)
@@ -76,4 +80,27 @@ class Grid
 
     grid
   end
+end
+
+def to_s
+  output = "+" + "---+" * columns + "\n"
+
+  @grid.each do |row|
+    top = "|"
+    bottom = "+"
+
+    row.each do |cell|
+      if cell
+        east_boundary = (cell.linked?(cell.east) ? " " : "|")
+        south_boundary = (cell.linked?(cell.south) ? "   " : "---")
+        top << "   " << east_boundary
+        bottom << south_boundary << "+"
+      end
+    end
+
+    output << top << "\n"
+    output << bottom << "\n"
+  end
+
+  output
 end

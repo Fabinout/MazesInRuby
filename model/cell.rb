@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
 class Cell
-
-  attr_reader :row, :column
+  attr_reader :row, :column, :grid
   attr_accessor :north, :east, :south, :west
 
-  def initialize(row, column)
+  def initialize(row, column, grid)
     @row = row
     @column = column
+    @grid = grid
     @links = {}
   end
 
-  def link(cell, bidi=true)
+  def link(cell, bidi = true, notify = true)
+    return self unless cell
     @links[cell] = true
-    cell.link(self, false) if bidi
+    if bidi
+      cell.link(self, false)
+      grid.notify_cells_linked(self, cell) if notify
+    end
     self
   end
 
-  def unlink(cell, bidi=true)
+  def unlink(cell, bidi = true)
     @links.delete(cell)
     cell.unlink(self, false) if bidi
   end

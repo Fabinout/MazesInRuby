@@ -26,7 +26,7 @@ class CellCreatedEvent < MazeEvent
   end
 
   def apply(maze)
-    maze.add_cell(@row, @column)
+    # maze.add_cell(@row, @column)
   end
 
   def to_h
@@ -48,7 +48,7 @@ class CellsLinkedEvent < MazeEvent
   def apply(maze)
     cell1 = maze.cell_at(@from_row, @from_column)
     cell2 = maze.cell_at(@to_row, @to_column)
-    cell1.link(cell2)
+    cell1.link(cell2, true, false)
   end
 
   def to_h
