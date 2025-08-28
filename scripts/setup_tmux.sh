@@ -50,6 +50,12 @@ tmux split-window -h -t maze_demo:1
 tmux send-keys -t maze_demo:1.0 "cd $PROJECT_ROOT && watch ruby $SCRIPTS_DIR/binary_tree_demo.rb 12" C-m
 tmux send-keys -t maze_demo:1.1 "cd $PROJECT_ROOT && ruby $SCRIPTS_DIR/binary_tree_grid_generator.rb 12" C-m
 
+# Créer une nouvelle fenêtre "Essuie-glace" avec 2 panneaux (séparation verticale)
+tmux new-window -t maze_demo -n 'SideWinder'
+tmux split-window -h -t maze_demo:2
+tmux send-keys -t maze_demo:2.0 "cd $PROJECT_ROOT && watch ruby $SCRIPTS_DIR/sidewinder_demo.rb 12" C-m
+tmux send-keys -t maze_demo:2.1 "cd $PROJECT_ROOT && ruby $SCRIPTS_DIR/sidewinder_generator.rb 12" C-m
+
 # Attacher à la session
 tmux attach-session -t maze_demo
 
