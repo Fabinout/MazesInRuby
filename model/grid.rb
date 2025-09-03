@@ -40,6 +40,12 @@ class Grid
     @grid[row][column]
   end
 
+  def [](row, column)
+    return nil unless row.between?(0, @rows - 1)
+    return nil unless column.between?(0, @grid[row].count - 1)
+    @grid[row][column]
+  end
+
   def notify_cells_linked(cell1, cell2)
     apply_event(CellsLinkedEvent.new(cell1.row, cell1.column, cell2.row, cell2.column))
   end
@@ -83,11 +89,20 @@ class Grid
                 )
               end
     end
-
     grid
   end
 end
 
+# to be extended in subclass distance_grids
+def contents_of(cell)
+  " "
+end
+
+def to_s
+  output = "+" + "---+" * columns + "\n"
+
+  each_row do |row|
+    
 def to_s
   output = "+" + "---+" * columns + "\n"
 
@@ -96,17 +111,16 @@ def to_s
     bottom = "+"
 
     row.each do |cell|
-      if cell
+      cell = Cell.new(- 1, -1, this) unless cell
+        body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? " " : "|")
         south_boundary = (cell.linked?(cell.south) ? "   " : "---")
         top << "   " << east_boundary
         bottom << south_boundary << "+"
       end
+
+      output << top << "\n"
+      output << bottom << "\n"
     end
-
-    output << top << "\n"
-    output << bottom << "\n"
-  end
-
   output
 end
