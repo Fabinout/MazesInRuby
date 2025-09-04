@@ -28,10 +28,10 @@ class Grid
     # Configuration des cellules voisines
     @grid.each_with_index do |row, r|
       row.each_with_index do |cell, c|
-        cell.north = @grid[r-1][c] if r > 0
-        cell.south = @grid[r+1][c] if r + 1 < rows
-        cell.west = @grid[r][c-1] if c > 0
-        cell.east = @grid[r][c+1] if c + 1 < columns
+        cell.north = @grid[r - 1][c] if r > 0
+        cell.south = @grid[r + 1][c] if r + 1 < rows
+        cell.west = @grid[r][c - 1] if c > 0
+        cell.east = @grid[r][c + 1] if c + 1 < columns
       end
     end
   end
@@ -91,27 +91,20 @@ class Grid
     end
     grid
   end
-end
 
-# to be extended in subclass distance_grids
-def contents_of(cell)
-  " "
-end
+  def contents_of(cell)
+    " "
+  end
 
-def to_s
-  output = "+" + "---+" * columns + "\n"
+  def to_s
 
-  each_row do |row|
-    
-def to_s
-  output = "+" + "---+" * columns + "\n"
+    output = "+" + "---+" * columns + "\n"
+    @grid.each do |row|
+      top = "|"
+      bottom = "+"
 
-  @grid.each do |row|
-    top = "|"
-    bottom = "+"
-
-    row.each do |cell|
-      cell = Cell.new(- 1, -1, this) unless cell
+      row.each do |cell|
+        cell = Cell.new(-1, -1, this) unless cell
         body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? " " : "|")
         south_boundary = (cell.linked?(cell.south) ? "   " : "---")
@@ -122,5 +115,8 @@ def to_s
       output << top << "\n"
       output << bottom << "\n"
     end
-  output
+    output
+  end
+
 end
+
