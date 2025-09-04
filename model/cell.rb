@@ -44,12 +44,11 @@ class Cell
   end
 
   def distances
+    puts "calcul des distances à  partir de [#{self.row},#{self.column}]"
     distances = Distances.new(self)
     frontier = [self]
-
     while frontier.any?
       new_frontier = []
-
       frontier.each do |cell|
         cell.links.each do |linked|
           next if distances[linked]
@@ -57,10 +56,8 @@ class Cell
           new_frontier << linked
         end
       end
-
       frontier = new_frontier
     end
-
     distances
   end
 end

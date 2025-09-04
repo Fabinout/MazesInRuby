@@ -92,23 +92,24 @@ class Grid
     grid
   end
 
+  # Valeur par défaut pour le rendu d’une cellule (peut être surchargée)
   def contents_of(cell)
     " "
   end
 
+  # Rendu ASCII de la grille
   def to_s
-
-    output = "+" + "---+" * columns + "\n"
+    output = "+" + ("---+" * columns) + "\n"
     @grid.each do |row|
       top = "|"
       bottom = "+"
 
       row.each do |cell|
-        cell = Cell.new(-1, -1, this) unless cell
+        cell = Cell.new(-1, -1, self) unless cell
         body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? " " : "|")
         south_boundary = (cell.linked?(cell.south) ? "   " : "---")
-        top << "   " << east_boundary
+        top << body << east_boundary
         bottom << south_boundary << "+"
       end
 
@@ -117,6 +118,5 @@ class Grid
     end
     output
   end
-
 end
 
