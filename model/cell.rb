@@ -44,7 +44,8 @@ class Cell
   end
 
   def distances
-    puts "calcul des distances à  partir de [#{self.row},#{self.column}]"
+    # à  recoder soi-même
+    # puts "calcul des distances à  partir de [#{self.row},#{self.column}]"
     distances = Distances.new(self)
     frontier = [self]
     while frontier.any?

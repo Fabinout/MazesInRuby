@@ -12,35 +12,15 @@ GENERATION_DIR="generation"
 SCRIPTS_DIR="scripts"
 MODEL_DIR="model"
 
-# Diviser la fenêtre en 4 panneaux
-# Layout:
-# +----------------+----------------+
-# |                |                |
-# |    Code        |    Tests       |
-# |                |                |
-# +----------------+----------------+
-# |                |                |
-# |    Execution   |  Visualization |
-# |                |                |
-# +----------------+----------------+
-
 tmux split-window -h -t maze_demo:0     # Diviser en deux colonnes
 
-tmux split-window -v -t maze_demo:0.0   # Diviser la première colonne en deux lignes
-
-tmux split-window -v -t 2 # Diviser la deuxième colonne en deux lignes
-
 # Nommer les panneaux pour plus de clarté
-tmux select-pane -t maze_demo:0.0 -T "Code Source"
-tmux select-pane -t maze_demo:0.1 -T "Tests de Propriétés"
-tmux select-pane -t maze_demo:0.2 -T "Exécution"
-tmux select-pane -t maze_demo:0.3 -T "Visualisation"
+tmux select-pane -t maze_demo:0.0 -T "Code Source Cellule"
+tmux select-pane -t maze_demo:0.1 -T "Code Source Grille"
 
 # Configurer les commandes initiales dans chaque panneau
-tmux send-keys -t maze_demo:0.0 "cd $GENERATION_DIR && vim $MODEL_DIR/cell.rb " C-m
-tmux send-keys -t maze_demo:0.1 "vim test_properties.rb" C-m
-tmux send-keys -t maze_demo:0.2 "echo 'Prêt pour exécution'" C-m
-tmux send-keys -t maze_demo:0.3 "echo 'Prêt pour visualisation'" C-m
+tmux send-keys -t maze_demo:0.0 "vim $MODEL_DIR/cell.rb " C-m
+tmux send-keys -t maze_demo:0.1 "vim $MODEL_DIR/grid.rb0" C-m
 
 # Sélectionner le premier panneau
 tmux select-pane -t maze_demo:0.0
@@ -56,6 +36,10 @@ tmux new-window -t maze_demo -n 'SideWinder'
 tmux split-window -h -t maze_demo:2
 tmux send-keys -t maze_demo:2.0 "./RerunOnKey.sh $SCRIPTS_DIR/sidewinder_demo.rb 12" C-m
 tmux send-keys -t maze_demo:2.1 "ruby $SCRIPTS_DIR/sidewinder_generator.rb 12" C-m
+
+# Créer une nouvelle fenêtre "MazeStatistics" avec test de propriétés
+tmux new-window -t maze_demo -n 'MazeStatistics'
+tmux send-keys -t maze_demo:3 "ruby $SCRIPTS_DIR/maze_statistics.rb" C-m
 
 # Attacher à la session
 tmux attach-session -t maze_demo
