@@ -20,7 +20,7 @@ tmux select-pane -t maze_demo:0.1 -T "Code Source Grille"
 
 # Configurer les commandes initiales dans chaque panneau
 tmux send-keys -t maze_demo:0.0 "vim $MODEL_DIR/cell.rb " C-m
-tmux send-keys -t maze_demo:0.1 "vim $MODEL_DIR/grid.rb0" C-m
+tmux send-keys -t maze_demo:0.1 "vim $MODEL_DIR/grid.rb" C-m
 
 # Sélectionner le premier panneau
 tmux select-pane -t maze_demo:0.0
