@@ -5,6 +5,16 @@ require_relative '../generation/binary_tree'
 require_relative '../generation/sidewinder'
 require 'benchmark'
 
+
+#Usage :
+# # Analyse avec paramètres par défaut (10x10, 10 échantillons)
+# ruby scripts/maze_statistics.rb
+#
+# # Analyse avec une taille spécifique
+# ruby scripts/maze_statistics.rb 20 20
+#
+# # Analyse avec taille et nombre d'échantillons personnalisés
+# ruby scripts/maze_statistics.rb 15 15 50
 class MazeStatistics
   attr_reader :algorithm_name, :generation_times, :longest_paths,
               :dead_ends, :horizontal_bias, :vertical_bias,
@@ -242,7 +252,7 @@ end
 class MazeAnalyzer
   ALGORITHMS = {
     'Binary Tree' => BinaryTree,
-    # 'Sidewinder' => Sidewinder
+    #'Sidewinder' => Sidewinder
   }
 
   def initialize(rows: 10, cols: 10, samples: 10)
