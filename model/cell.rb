@@ -44,8 +44,9 @@ class Cell
   end
 
   def distances
-    distances = Distances.new(self)
+    distances  = Distances.new(self)
     frontier = [self]
+    
     while frontier.any?
       new_frontier = []
       frontier.each do |cell|
@@ -54,9 +55,9 @@ class Cell
           distances[linked] = distances[cell] +1
           new_frontier << linked
         end
-      end
+      end  
       frontier = new_frontier
     end
-    distances
+    distances 
   end
 end

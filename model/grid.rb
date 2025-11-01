@@ -36,9 +36,6 @@ class Grid
     end
   end
 
-  def cell_at(row, column)
-    @grid[row][column]
-  end
 
   def [](row, column)
     return nil unless row.between?(0, @rows - 1)
@@ -66,6 +63,11 @@ class Grid
     @grid.each do |row|
       yield row
     end
+  end
+
+  def random_cell
+    row = @grid.sample
+    row.sample if row
   end
 
   def save_events(filename)

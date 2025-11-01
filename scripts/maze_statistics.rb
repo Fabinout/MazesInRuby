@@ -3,6 +3,7 @@
 require_relative '../model/grid'
 require_relative '../generation/binary_tree'
 require_relative '../generation/sidewinder'
+require_relative '../generation/aldous_broder'
 require 'benchmark'
 
 
@@ -252,7 +253,8 @@ end
 class MazeAnalyzer
   ALGORITHMS = {
     'Binary Tree' => BinaryTree,
-    #'Sidewinder' => Sidewinder
+    'Sidewinder' => Sidewinder,
+   'AldousBroder' => AldousBroder
   }
 
   def initialize(rows: 10, cols: 10, samples: 10)

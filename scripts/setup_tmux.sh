@@ -37,9 +37,15 @@ tmux split-window -h -t maze_demo:2
 tmux send-keys -t maze_demo:2.0 "./RerunOnKey.sh $SCRIPTS_DIR/sidewinder_demo.rb 12" C-m
 tmux send-keys -t maze_demo:2.1 "ruby $SCRIPTS_DIR/sidewinder_generator.rb 12" C-m
 
+# Créer une nouvelle fenêtre "AldousBroder" avec 2 panneaux (séparation verticale)
+tmux new-window -t maze_demo -n 'AldousBroder'
+tmux split-window -h -t maze_demo:3
+tmux send-keys -t maze_demo:3.0 "./RerunOnKey.sh $SCRIPTS_DIR/aldous_broder_demo.rb 12" C-m
+tmux send-keys -t maze_demo:3.1 "ruby $SCRIPTS_DIR/aldous_broder_generator.rb 12" C-m
+
 # Créer une nouvelle fenêtre "MazeStatistics" avec test de propriétés
 tmux new-window -t maze_demo -n 'MazeStatistics'
-tmux send-keys -t maze_demo:3 "ruby $SCRIPTS_DIR/maze_statistics.rb" C-m
+tmux send-keys -t maze_demo:4 "ruby $SCRIPTS_DIR/maze_statistics.rb" C-m
 
 # Attacher à la session
 tmux attach-session -t maze_demo
