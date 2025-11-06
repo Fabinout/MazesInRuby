@@ -47,7 +47,7 @@ class Cell
     distances  = Distances.new(self)
     frontier = [self]
     
-    while frontier.any?
+    until frontier.empty?
       new_frontier = []
       frontier.each do |cell|
         cell.links.each do |linked|
