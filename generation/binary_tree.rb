@@ -4,7 +4,8 @@ class BinaryTree
 
   def self.on(grid)
     grid.each_cell do |cell|
-      cell.link(cell.north)
+      neighbor = [cell.north, cell.east].compact.sample
+      cell.link(neighbor)
     end
     grid
   end
